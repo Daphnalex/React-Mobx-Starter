@@ -20,7 +20,9 @@ app.use(function(req, res, next) {
   console.log(req.method, req.url);
   next();
 });
-
+app.get("*",function(req,res){
+  res.sendFile(path.resolve(__dirname,'public','index.html'))
+})
 app.use('/api', routes);
 
 var server = app.listen(app.get('port'), function() {

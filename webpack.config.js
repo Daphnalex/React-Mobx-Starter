@@ -1,3 +1,4 @@
+
 module.exports = {
   entry: './public/src/index.js',
   output: {
@@ -10,9 +11,16 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+        test : /\.scss$/,
+        loaders : ["style-loader", "css-loader", "sass-loader"]
       }
     ]
   },
+  devServer: {
+    historyApiFallback: true
+ },
   resolve: {
     extensions: ['','.jsx', '.js', '.json']
   }
