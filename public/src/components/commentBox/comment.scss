@@ -14,10 +14,17 @@ ul .collection.with-header{
 h1{
   font-size: 22px;
 }
+h2{
+  font-size: 20px;
+}
 li.collection-item{
   padding: 30px !important;
+  padding-bottom: 50px !important;
 }
 ul.collection.with-header{
   background-color: white;
   padding-bottom: 20px;
+}
+div.blocResponse > ul.collection{
+  background-color: #f1f0f1;
 }
