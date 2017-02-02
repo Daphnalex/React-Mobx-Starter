@@ -2,6 +2,22 @@ import React, {Component} from 'react';
 import { observer } from 'mobx-react';
 import styles from './comment.scss';
 
+class popComment extends Component{
+  render(){
+    return(
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Modal Header</h4>
+          <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+      </div>
+    )
+  }
+}
+
 class ListComment extends Component {
   constructor(props){
     console.log('jentre');
@@ -22,12 +38,22 @@ class ListComment extends Component {
 
   render(){
     return(
-      <div className ="col s8 offset-s2">
-        <ul className="collection with-header">
-          <li  className="collection-header">Liste des commentaires - {this.state.box.length} commentaire(s) :</li>
+      <div className="row">
+        <div className ="col s8 offset-s2">
           {this.state.box.map((todo, index)=>
-            <li className="collection-item" key={index}><b>{todo.name}</b><br/> {todo.commentary}</li>) }
-        </ul>
+            <ul key={index} className="collection with-header">
+              <li  className="collection-header">
+                <h1>{todo.name}</h1>
+              </li>
+              <li className="collection-item">{todo.commentary}</li>
+              <li>
+                <div className="collection-item">
+                  <button onClick={()=>this.addComment()} className="right btn btn-primary" value="1">Commenter</button>
+                </div>
+              </li>
+          </ul>)}
+        </div>
+
       </div>
     )
   }
@@ -59,18 +85,16 @@ class Comment extends Component {
 
   render(){
     return(
-      <div className="col s8 offset-s2 card blue-grey darken-1">
-        <div className="card-content white-text">
-          <span className="card-title">Ecrire un commentaire</span>
+      <div className="col s8 offset-s2 card">
+        <div className="card-content">
+          <span className="card-title">Poster un commentaire</span>
           <form className="col s12" onSubmit={(event) => this.props.fonctionSubmit(event, this.state.name, this.state.commentary)}>
             <div className="row">
-              Nom :
               <div className="input-field col s12">
                 <input onChange={(name) => this.nameChange(name)} placeholder="Nom" id="first_name" type="text" className="validate" />
               </div>
             </div>
             <div className="row">
-              Commentaire :
               <div className="input-field col s12">
                 <input onChange={(commentary) => this.commentChange(commentary)} placeholder="Commentaire" id="text" type="text" className="validate"/>
               </div>
@@ -103,7 +127,7 @@ class CommentBox extends Component {
   componentWillMount(){
     this.setState({
         box : [
-          {"name" : "Daphné", "commentary" : "La bouilloire est vide"}
+          {"name" : "Zoo de Beauval", "commentary" : "Notre soigneur accompagne aujourd'hui notre girafe dans sa nouvelle demeure au zoo de la Palmyre"}
         ]
     });
   }

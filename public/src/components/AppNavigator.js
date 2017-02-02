@@ -2,10 +2,7 @@ import React, {Component, IndexRoute} from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import { observer } from 'mobx-react';
 import Home from './home/home.js';
-import Comment from './comment/comment.js';
-import noMatch from './noMatch/noMatch.js';
-
-
+import Mur from './mur/mur.js';
 
 
 @observer
@@ -14,7 +11,7 @@ class AppNavigator extends Component {
    return(
      <Router history={browserHistory}>
         <Route exact path="/" component={Home}/>
-        <Route path='comment' component={Comment}/>
+        <Route path='murPerso' component={Mur} />
       </Router>
     )
   }
