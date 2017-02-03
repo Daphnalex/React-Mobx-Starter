@@ -2,42 +2,79 @@ import React, {Component} from 'react';
 import { observer } from 'mobx-react';
 import styles from './comment.scss';
 
-class Response extends Component {
+class ResponseBox extends Component {
   constructor(props){
     super(props);
     this.state = {
-      box : this.props.box,
-      todo : this.props.todo
+      nameResponse : "",
+      commentResponse : "",
+      response : this.props.response
     }
-    console.log('prout', this.state.todo);
+    console.log("responsebox", this.state.response);
+  }
+
+  nameChange(event){
+    console.log('Nom', event.target.value);
+    this.setState({
+      name : event.target.value
+    })
+  }
+
+  commentChange(event){
+    console.log('Commentaire', event.target.value);
+    this.setState({
+      commentary : event.target.value
+    })
+  }
+
+  render(){
+    return(
+      <div className="card-content">
+        <span className="card-title">Poster un commentaire</span>
+        <form className="col s12">
+          <div className="row">
+            <div className="input-field col s12">
+              <input onChange={(event) => this.nameChange(event)} placeholder="Nom" id="first_name" type="text" className="validate" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input onChange={(event) => this.commentChange(event)} placeholder="Commentaire" id="text" type="text" className="validate"/>
+            </div>
+          </div>
+          <div className="col s12">
+            <button className="right btn btn-primary" onClick={(event) => this.props.submit2(event, this.state.response, this.state.name, this.state.commentary)} value="1">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    )
+  }
+}
+
+class Response extends Component {
+  constructor(props){
+    super(props);
+    console.log(this.props.response);
+    this.state={
+      response : this.props.response
+    }
   }
   render(){
     return(
-      <div className="row blocResponse">
-        {this.state.todo.response.map((res, index)=>
-        <ul key={index} className=" col s8 offset-s2 collection with-header">
-          <li  className="collection-header">
-            <h2>{res.name}</h2>
-          </li>
-          <li className="collection-item">{res.commentary}
-          </li>
-        </ul>
+      <div>
+        {this.state.response.map((res, index)=>
+          <ul key={index} className="collection with-header">
+            <li  className="collection-header">
+              <h1>{res.name}</h1>
+            </li>
+            <li className="collection-item">{res.commentary}</li>
+          </ul>
         )}
       </div>
     )
   }
 }
 
-class ResponsePost extends Component {
-  constructor(props){
-    super(props);
-  }
-  render(){
-    return(
-      <h2>Ceci est un test</h2>
-    )
-  }
-}
 
 class ListComment extends Component {
   constructor(props){
@@ -75,7 +112,7 @@ class ListComment extends Component {
                 </div>
               </li>
               <li>
-                {(this.state.click === true)? <ResponsePost/> : <Response todo={todo} box={this.props.box}/>}
+                {(this.state.click === true) ? <ResponseBox submit2={this.props.fonctionSubmit2} response={todo.response}/> : <Response response={todo.response}/>}
               </li>
           </ul>)}
         </div>
@@ -181,12 +218,27 @@ class CommentBox extends Component {
     event.preventDefault();
   }
 
+  submit2(event, response, name, commentary){
+    console.log(response);
+    console.log(name);
+    console.log(commentary);
+    var array2 = response;
+    let res = {"name" : name, "commentary" : commentary};
+    array2.push(res);
+    console.log('réponse', array2);
+    console.log('clic1', this.state.click);
+    this.change(event, this.state.click);
+    console.log('clic2', this.state.click);
+    //event.preventDefault();
+    //exit();
+  }
+
   render(){
     return(
       <div className="row">
           <div className="col s12">
             <CommentPost fonctionSubmit={this.submit} name={this.state.name} commentary={this.state.commentary}/>
-            <ListComment box={this.state.box} changeClick={this.change} click={this.state.click}/>
+            <ListComment box={this.state.box} changeClick={this.change} click={this.state.click} fonctionSubmit2={this.submit2}/>
           </div>
       </div>
     );
