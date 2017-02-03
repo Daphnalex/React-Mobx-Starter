@@ -31,8 +31,7 @@ class ResponseBox extends Component {
     return(
       <div className="card-content">
         <span className="card-title">Poster un commentaire</span>
-        <form className="col s12">
-          <div className="row">
+        <div className="row">
             <div className="input-field col s12">
               <input onChange={(event) => this.nameChange(event)} placeholder="Nom" id="first_name" type="text" className="validate" />
             </div>
@@ -45,7 +44,6 @@ class ResponseBox extends Component {
           <div className="col s12">
             <button className="right btn btn-primary" onClick={(event) => this.props.submit2(event, this.state.response, this.state.name, this.state.commentary)} value="1">Enregistrer</button>
           </div>
-        </form>
       </div>
     )
   }
@@ -54,7 +52,7 @@ class ResponseBox extends Component {
 class Response extends Component {
   constructor(props){
     super(props);
-    console.log(this.props.response);
+    console.log("v'est moi", this.props.response);
     this.state={
       response : this.props.response
     }
@@ -63,7 +61,7 @@ class Response extends Component {
     return(
       <div>
         {this.state.response.map((res, index)=>
-          <ul key={index} className="collection with-header">
+          <ul key={index} className="col s8 offset-s2 collection with-header">
             <li  className="collection-header">
               <h1>{res.name}</h1>
             </li>
@@ -186,7 +184,9 @@ class CommentBox extends Component {
       response : [],
       click : false
     }
+
     this.submit = this.submit.bind(this);
+    this.submit2 = this.submit2.bind(this);
     this.change = this.change.bind(this);
   }
 
@@ -210,11 +210,11 @@ class CommentBox extends Component {
     //console.log(name);
     //console.log(commentary);
     var array = this.state.box;
-    array.push({"name" : name, "commentary" : commentary });
+    array.push({"name" : name, "commentary" : commentary , "response": []});
     this.setState({
       box : array
     })
-    console.log(this.state.box);
+    console.log("box", this.state.box);
     event.preventDefault();
   }
 
@@ -225,12 +225,11 @@ class CommentBox extends Component {
     var array2 = response;
     let res = {"name" : name, "commentary" : commentary};
     array2.push(res);
+    this.setState({
+      click : false
+    })
     console.log('réponse', array2);
-    console.log('clic1', this.state.click);
-    this.change(event, this.state.click);
-    console.log('clic2', this.state.click);
-    //event.preventDefault();
-    //exit();
+
   }
 
   render(){

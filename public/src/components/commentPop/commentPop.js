@@ -6,8 +6,8 @@ import Comment from "../commentBox/comment.js";
 class popComment extends Component{
   render(){
     return(
-      <div id="modal1" class="modal">
-        <div class="modal-content">
+      <div id="modal1" className="modal">
+        <div className="modal-content">
           <h4>Poster un commentaire</h4>
           <p>
           <form className="col s12" onSubmit={(event) => this.props.fonctionSubmit(event, this.state.name, this.state.commentary)}>
@@ -27,7 +27,7 @@ class popComment extends Component{
           </form>
           </p>
         </div>
-        <div class="modal-footer">
+        <div className="modal-footer">
           <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
         </div>
       </div>
